@@ -17,8 +17,8 @@ datasource db {
 model Target {
   id           String @id @default(uuid())
   name         String
-  topLeftX     Int
-  topLeftY     Int
-  bottomRightX Int
-  bottomRightY Int
+  topLeftX     Float
+  topLeftY     Float
+  bottomRightX Float
+  bottomRightY Float
 }
