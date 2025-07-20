@@ -4,6 +4,7 @@ import "./styles/test.css";
 function Test() {
   const [targets, setTargets] = useState([]);
   const [currentTarget, setCurrentTarget] = useState(null);
+  const [coords, setCoords] = useState({ x: "", y: "" });
 
   useEffect(() => {
     fetchTargets();
@@ -28,7 +29,7 @@ function Test() {
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
-    setCoordinates({ x, y });
+    setCoords({ x, y });
     console.log("Normalized: ", x.toFixed(3), y.toFixed(3));
   };
 
@@ -50,6 +51,13 @@ function Test() {
               );
             })}
           </select>
+      <div className="where-is-waldo">
+        <img
+          onClick={handleImageClick}
+          src="src/assets/wheres-waldo-beach.jpeg"
+          alt=""
+        />
+      </div>
   );
 }
 
