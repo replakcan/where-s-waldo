@@ -8,16 +8,6 @@
 .where-is-waldo img {
   position: relative;
   max-width: 100%;
-}
-
-.dot {
-  background: black;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50px, -50px);
-  z-index: 1;
-  border-radius: 50%;
+  height: auto;
+  cursor: crosshair;
 }
