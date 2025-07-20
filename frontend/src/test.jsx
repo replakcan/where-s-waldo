@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/test.css";
 
 function Test() {
-  const [coordinates, setCoordinates] = useState({ x: "", y: "" });
+  const [targets, setTargets] = useState([]);
+
+  useEffect(() => {
+    fetchTargets();
+  }, []);
+
+  const fetchTargets = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/api/targets");
+
+      const targets = await res.json();
+
+      setTargets(targets);
+      console.log(targets);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleImageClick = (e) => {
     const rect = e.target.getBoundingClientRect();
