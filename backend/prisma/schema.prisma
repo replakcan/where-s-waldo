@@ -15,10 +15,10 @@ datasource db {
 }
 
 model Target {
-  id          String @id @default(uuid())
-  name        String
-  topLeftX    Int
-  topLeftY    Int
-  bottomLeftX Int
-  bottomLeftY Int
+  id           String @id @default(uuid())
+  name         String
+  topLeftX     Int
+  topLeftY     Int
+  bottomRightX Int
+  bottomRightY Int
 }
