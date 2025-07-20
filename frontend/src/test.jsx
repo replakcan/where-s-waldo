@@ -4,15 +4,23 @@ import "./styles/test.css";
 function Test() {
   const [coordinates, setCoordinates] = useState({ x: "", y: "" });
 
-  const handleCoordinates = (e) => {
-    console.log(e);
+  const handleImageClick = (e) => {
+    const rect = e.target.getBoundingClientRect();
+
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+
+    setCoordinates({ x, y });
+    console.log("Normalized: ", x.toFixed(3), y.toFixed(3));
   };
 
   return (
-    <div onClick={handleCoordinates} className="where-is-waldo">
-      <div class="dot"></div>
-
-      <img src="src/assets/wheres-waldo-beach.jpeg" alt="" />
+    <div className="where-is-waldo">
+      <img
+        onClick={handleImageClick}
+        src="src/assets/wheres-waldo-beach.jpeg"
+        alt=""
+      />
     </div>
   );
 }
