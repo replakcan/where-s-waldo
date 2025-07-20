@@ -23,6 +23,32 @@ function Test() {
     }
   };
 
+  const compareCoords = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        `http://localhost:3001/api/targets/${currentTarget}`
+      );
+
+      const target = await res.json();
+      const { bottomRightX, bottomRightY, topLeftX, topLeftY } = target;
+      const { x, y } = coords;
+
+      if (
+        x < bottomRightX &&
+        x > topLeftX &&
+        y > topLeftY &&
+        y < bottomRightY
+      ) {
+        console.log(`you found ${target.name}!`);
+      } else {
+        console.log("Try again!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleImageClick = (e) => {
     const rect = e.target.getBoundingClientRect();
 
@@ -38,9 +64,9 @@ function Test() {
   };
 
   return (
-    <div className="where-is-waldo">
-      <img
-        onClick={handleImageClick}
+    <>
+      <div>
+        <form action="" onSubmit={compareCoords}>
           <select name="target" id="target" onChange={handleChange}>
             <option value="">--select target--</option>
             {targets.map((target) => {
@@ -51,6 +77,9 @@ function Test() {
               );
             })}
           </select>
+          <button type="submit">check!</button>
+        </form>
+      </div>
       <div className="where-is-waldo">
         <img
           onClick={handleImageClick}
@@ -58,6 +87,7 @@ function Test() {
           alt=""
         />
       </div>
+    </>
   );
 }
 
