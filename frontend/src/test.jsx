@@ -3,6 +3,7 @@ import "./styles/test.css";
 
 function Test() {
   const [targets, setTargets] = useState([]);
+  const [currentTarget, setCurrentTarget] = useState(null);
 
   useEffect(() => {
     fetchTargets();
@@ -31,14 +32,24 @@ function Test() {
     console.log("Normalized: ", x.toFixed(3), y.toFixed(3));
   };
 
+  const handleChange = (e) => {
+    setCurrentTarget(e.target.value);
+  };
+
   return (
     <div className="where-is-waldo">
       <img
         onClick={handleImageClick}
-        src="src/assets/wheres-waldo-beach.jpeg"
-        alt=""
-      />
-    </div>
+          <select name="target" id="target" onChange={handleChange}>
+            <option value="">--select target--</option>
+            {targets.map((target) => {
+              return (
+                <option key={target.id} value={target.id}>
+                  {target.name}
+                </option>
+              );
+            })}
+          </select>
   );
 }
 
