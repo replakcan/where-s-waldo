@@ -1,0 +1,23 @@
+.where-is-waldo {
+  background-color: black;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.where-is-waldo img {
+  position: relative;
+  max-width: 100%;
+}
+
+.dot {
+  background: black;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50px, -50px);
+  z-index: 1;
+  border-radius: 50%;
+}
