@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import "../styles/gameboard.css";
+import ResultDialogBox from "../components/result-dialog-box";
 
 export default function Root() {
   const [targets, setTargets] = useState([]);
@@ -9,7 +10,9 @@ export default function Root() {
   const [foundTargets, setFoundTargets] = useState([]);
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [showDialog, setShowDialog] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -33,8 +36,8 @@ export default function Root() {
     if (targets.length > 0 && foundTargets.length === targets.length) {
       clearInterval(intervalId);
       setIntervalId(null);
-      const seconds = Math.floor((Date.now() - startTime) / 1000);
-      console.log("Game finished in", seconds, "seconds");
+
+      setShowDialog(true);
     }
   }, [foundTargets, targets, intervalId, startTime]);
 
@@ -139,6 +142,9 @@ export default function Root() {
         <NavLink to="leaderboard">Leaderboard</NavLink>
       </header>
       <Outlet context={{ setCoords, targets, foundTargets }} />
+      {showDialog && (
+        <ResultDialogBox setShowDialog={setShowDialog} startTime={startTime} />
+      )}
     </section>
   );
 }
