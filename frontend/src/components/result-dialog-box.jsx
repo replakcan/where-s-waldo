@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import "../styles/result-dialog-box.css";
 
 export default function ResultDialogBox({ setShowDialog, startTime }) {
   const [playerName, setPlayerName] = useState("Anonymous");
