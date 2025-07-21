@@ -6,10 +6,21 @@ function Test() {
   const [currentTarget, setCurrentTarget] = useState("--select target--");
   const [coords, setCoords] = useState({ x: "", y: "" });
   const [foundTargets, setFoundTargets] = useState([]);
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
     fetchTargets();
   }, []);
+
+  useEffect(() => {
+    if (targets.length > 0 && foundTargets.length == targets.length) {
+      clearInterval(intervalId);
+      const seconds = Math.floor((Date.now() - startTime) / 1000);
+      console.log("Game finished in", seconds, "seconds");
+    }
+  }, [foundTargets, targets, intervalId, startTime]);
 
   const fetchTargets = async () => {
     try {
@@ -68,9 +79,22 @@ function Test() {
     setCurrentTarget(e.target.value);
   };
 
+  const handleStartClick = () => {
+    const now = Date.now();
+    setStartTime(now);
+    setElapsedTime(0);
+    setFoundTargets([]);
+
+    const id = setInterval(() => {
+      setElapsedTime(Date.now() - now);
+    }, 1000);
+
+    setIntervalId(id);
+  };
+
   return (
     <>
-      <div>
+      <header>
         <form onSubmit={compareCoords}>
           <select
             value={currentTarget}
@@ -97,10 +121,16 @@ function Test() {
           <button type="submit">check!</button>
         </form>
 
-        <div>Targets found: {foundTargets.length}</div>
-      </div>
+        <button onClick={handleStartClick}>Start the game!</button>
 
-      <div className="where-is-waldo">
+        <div>
+          Targets found: {foundTargets.length} / {targets.length}
+        </div>
+
+        <div>Time: {Math.floor(elapsedTime / 1000)} seconds</div>
+      </header>
+
+      <main className="where-is-waldo">
         <div className="img-container">
           <img
             onClick={handleImageClick}
@@ -129,7 +159,7 @@ function Test() {
             );
           })}
         </div>
-      </div>
+      </main>
     </>
   );
 }
