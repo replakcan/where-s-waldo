@@ -12,3 +12,12 @@
   height: auto;
   cursor: crosshair;
 }
+
+.not-found-target {
+  background-color: rgb(202, 133, 133);
+}
+
+.found-target {
+  background-color: lightgreen;
+  font-style: italic;
+}

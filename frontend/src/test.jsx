@@ -5,6 +5,7 @@ function Test() {
   const [targets, setTargets] = useState([]);
   const [currentTarget, setCurrentTarget] = useState(null);
   const [coords, setCoords] = useState({ x: "", y: "" });
+  const [foundTargets, setFoundTargets] = useState([]);
 
   useEffect(() => {
     fetchTargets();
@@ -41,6 +42,8 @@ function Test() {
         y < bottomRightY
       ) {
         console.log(`you found ${target.name}!`);
+        setFoundTargets((prevState) => [...prevState, target.name]);
+        setCurrentTarget("--select target--");
       } else {
         console.log("Try again!");
       }
@@ -67,11 +70,25 @@ function Test() {
     <>
       <div>
         <form action="" onSubmit={compareCoords}>
-          <select name="target" id="target" onChange={handleChange}>
+          <select
+            value={currentTarget}
+            name="target"
+            id="target"
+            onChange={handleChange}
+          >
             <option value="">--select target--</option>
             {targets.map((target) => {
               return (
-                <option key={target.id} value={target.id}>
+                <option
+                  className={
+                    foundTargets.includes(target.name)
+                      ? "found-target"
+                      : "not-found-target"
+                  }
+                  disabled={foundTargets.includes(target.name)}
+                  key={target.id}
+                  value={target.id}
+                >
                   {target.name}
                 </option>
               );
