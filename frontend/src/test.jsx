@@ -95,39 +95,43 @@ function Test() {
   return (
     <>
       <header>
-        <form onSubmit={compareCoords}>
-          <select
-            value={currentTarget}
-            name="target"
-            id="target"
-            onChange={handleChange}
-          >
-            <option value="">--select target--</option>
-            {targets.map((target) => (
-              <option
-                className={
-                  foundTargets.includes(target.name)
-                    ? "found-target"
-                    : "not-found-target"
-                }
-                disabled={foundTargets.includes(target.name)}
-                key={target.id}
-                value={target.id}
-              >
-                {target.name}
-              </option>
-            ))}
-          </select>
-          <button type="submit">check!</button>
-        </form>
-
         <button onClick={handleStartClick}>Start the game!</button>
 
-        <div>
-          Targets found: {foundTargets.length} / {targets.length}
-        </div>
+        {startTime && (
+          <>
+            <form onSubmit={compareCoords}>
+              <select
+                value={currentTarget}
+                name="target"
+                id="target"
+                onChange={handleChange}
+              >
+                <option value="">--select target--</option>
+                {targets.map((target) => (
+                  <option
+                    className={
+                      foundTargets.includes(target.name)
+                        ? "found-target"
+                        : "not-found-target"
+                    }
+                    disabled={foundTargets.includes(target.name)}
+                    key={target.id}
+                    value={target.id}
+                  >
+                    {target.name}
+                  </option>
+                ))}
+              </select>
+              <button type="submit">check!</button>
+            </form>
 
-        <div>Time: {Math.floor(elapsedTime / 1000)} seconds</div>
+            <div>
+              Targets found: {foundTargets.length} / {targets.length}
+            </div>
+
+            <div>Time: {Math.floor(elapsedTime / 1000)} seconds</div>
+          </>
+        )}
       </header>
 
       <main className="where-is-waldo">
