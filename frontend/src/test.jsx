@@ -3,7 +3,7 @@ import "./styles/test.css";
 
 function Test() {
   const [targets, setTargets] = useState([]);
-  const [currentTarget, setCurrentTarget] = useState(null);
+  const [currentTarget, setCurrentTarget] = useState("--select target--");
   const [coords, setCoords] = useState({ x: "", y: "" });
   const [foundTargets, setFoundTargets] = useState([]);
 
