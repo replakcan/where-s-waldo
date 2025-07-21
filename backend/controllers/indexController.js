@@ -2,12 +2,7 @@ const prisma = require("../lib/prisma");
 
 exports.getAllTargets = async (req, res, next) => {
   try {
-    const targets = await prisma.target.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+    const targets = await prisma.target.findMany();
 
     res.json(targets);
   } catch (error) {
