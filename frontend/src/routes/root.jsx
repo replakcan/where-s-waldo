@@ -74,7 +74,7 @@ export default function Root() {
   };
 
   const handleStartClick = () => {
-    navigate("/game");
+    navigate("game");
 
     if (intervalId) {
       clearInterval(intervalId);
@@ -90,6 +90,10 @@ export default function Root() {
     }, 1000);
 
     setIntervalId(id);
+  };
+
+  const handleLeaderboardClick = () => {
+    navigate("leaderboard");
   };
   return (
     <section className="root-section">
@@ -136,6 +140,7 @@ export default function Root() {
             <div>Time: {Math.floor(elapsedTime / 1000)} seconds</div>
           </>
         )}
+        <button onClick={handleLeaderboardClick}>Leaderboard</button>
       </header>
       <Outlet context={{ setCoords, targets, foundTargets }} />
     </section>
