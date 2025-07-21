@@ -18,11 +18,11 @@
 }
 
 .not-found-target {
-  background-color: rgb(202, 133, 133);
+  background-color: rgba(202, 133, 133, 0.5);
 }
 
 .found-target {
-  background-color: lightgreen;
+  background-color: rgba(144, 238, 144, 0.5);
   font-style: italic;
 }
 
@@ -58,9 +58,14 @@
 header {
   display: flex;
   justify-content: space-between;
-  background-color: lightblue;
   padding: 1rem;
   align-items: center;
+  background-image: linear-gradient(to bottom right, rgb(146, 144, 238), white);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+
 .sticky-header {
   position: sticky;
   top: 0;
@@ -108,4 +113,43 @@ header {
 .dialog-box button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
+}
+
+a {
+  color: inherit;
+  font-weight: bold;
+  transition: all 0.2s ease-in;
+  text-decoration: none;
+}
+
+a:hover {
+  color: purple;
+}
+
+a.active {
+  background: purple;
+  color: white;
+}
+
+a.pending {
+  color: purple;
+}
+
+button {
+  color: inherit;
+  font-weight: bold;
+  transition: all 0.2s ease-in;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  color: purple;
+}
+
+button:active {
+  background-color: purple;
+  color: white;
 }
