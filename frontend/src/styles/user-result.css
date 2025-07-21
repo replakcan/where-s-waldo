@@ -3,4 +3,17 @@
   border: 1px solid black;
   justify-content: space-around;
   padding: 1rem;
+  background-color: rgba(83, 92, 90, 0.4);
+  font-weight: bold;
+}
+
+.first-rank-medal {
+  width: 50px;
+}
+
+.second-rank-medal {
+  width: 40px;
+}
+.third-rank-medal {
+  width: 30px;
 }
