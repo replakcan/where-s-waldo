@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import "./styles/test.css";
+import { Outlet, useNavigate } from "react-router";
+import "../styles/gameboard.css";
 
-function Test() {
+export default function Root() {
   const [targets, setTargets] = useState([]);
   const [currentTarget, setCurrentTarget] = useState("--select target--");
   const [coords, setCoords] = useState({ x: "", y: "" });
@@ -9,19 +10,11 @@ function Test() {
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetchTargets();
   }, []);
-
-  useEffect(() => {
-    if (targets.length > 0 && foundTargets.length === targets.length) {
-      clearInterval(intervalId);
-      setIntervalId(null);
-      const seconds = Math.floor((Date.now() - startTime) / 1000);
-      console.log("Game finished in", seconds, "seconds");
-    }
-  }, [foundTargets, targets, intervalId, startTime]);
 
   const fetchTargets = async () => {
     try {
@@ -35,6 +28,15 @@ function Test() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (targets.length > 0 && foundTargets.length === targets.length) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+      const seconds = Math.floor((Date.now() - startTime) / 1000);
+      console.log("Game finished in", seconds, "seconds");
+    }
+  }, [foundTargets, targets, intervalId, startTime]);
 
   const compareCoords = async (e) => {
     e.preventDefault();
@@ -67,20 +69,13 @@ function Test() {
     }
   };
 
-  const handleImageClick = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-
-    setCoords({ x, y });
-    console.log("Normalized: ", x.toFixed(3), y.toFixed(3));
-  };
-
   const handleChange = (e) => {
     setCurrentTarget(e.target.value);
   };
 
   const handleStartClick = () => {
+    navigate("/game");
+
     if (intervalId) {
       clearInterval(intervalId);
     }
@@ -96,9 +91,8 @@ function Test() {
 
     setIntervalId(id);
   };
-
   return (
-    <>
+    <section className="root-section">
       <header>
         <button
           onClick={handleStartClick}
@@ -143,39 +137,7 @@ function Test() {
           </>
         )}
       </header>
-
-      <main className="where-is-waldo">
-        <div className="img-container">
-          <img
-            onClick={handleImageClick}
-            src="src/assets/wheres-waldo-beach.jpeg"
-            alt=""
-          />
-
-          {targets.map((target) => {
-            if (!foundTargets.includes(target.name)) return null;
-
-            return (
-              <div
-                key={target.id}
-                className="target-box fade-in"
-                style={{
-                  top: `${target.topLeftY * 100}%`,
-                  left: `${target.topLeftX * 100}%`,
-                  width: `${
-                    (target.bottomRightX + 0.01 - target.topLeftX) * 100
-                  }%`,
-                  height: `${
-                    (target.bottomRightY + 0.01 - target.topLeftY) * 100
-                  }%`,
-                }}
-              />
-            );
-          })}
-        </div>
-      </main>
-    </>
+      <Outlet context={{ setCoords, targets, foundTargets }} />
+    </section>
   );
 }
-
-export default Test;
