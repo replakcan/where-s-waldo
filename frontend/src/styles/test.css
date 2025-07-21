@@ -60,4 +60,16 @@ header {
   justify-content: space-between;
   background-color: lightblue;
   padding: 1rem;
+  align-items: center;
+}
+
+@media (max-width: 620px) {
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  header > * {
+    margin: auto;
+  }
 }
