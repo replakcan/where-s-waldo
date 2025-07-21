@@ -1,4 +1,37 @@
 .leaderboard {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  background-image: url("../assets/wheres-waldo-beach.jpeg");
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: lighten;
+}
+
+.leaderboard > h1 {
+  font-size: 50px;
+  color: white;
+  background-color: rgba(146, 20, 20, 0.5);
+}
+
+.user-result-title {
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-around;
+  padding: 1rem;
+}
+
+.user-result:nth-of-type(1) {
+  background-color: rgba(255, 215, 0, 0.5);
+  font-size: xx-large;
+}
+
+.user-result:nth-of-type(2) {
+  background-color: rgba(192, 192, 192, 0.5);
+  font-size: x-large;
+}
+
+.user-result:nth-of-type(3) {
+  background-color: rgba(205, 127, 50, 0.5);
+  font-size: large;
 }
