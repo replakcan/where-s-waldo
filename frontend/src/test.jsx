@@ -32,6 +32,7 @@ function Test() {
       );
 
       const target = await res.json();
+
       const { bottomRightX, bottomRightY, topLeftX, topLeftY } = target;
       const { x, y } = coords;
 
@@ -42,7 +43,9 @@ function Test() {
         y < bottomRightY
       ) {
         console.log(`you found ${target.name}!`);
+
         setFoundTargets((prevState) => [...prevState, target.name]);
+
         setCurrentTarget("--select target--");
       } else {
         console.log("Try again!");
@@ -54,7 +57,6 @@ function Test() {
 
   const handleImageClick = (e) => {
     const rect = e.target.getBoundingClientRect();
-
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
@@ -69,7 +71,7 @@ function Test() {
   return (
     <>
       <div>
-        <form action="" onSubmit={compareCoords}>
+        <form onSubmit={compareCoords}>
           <select
             value={currentTarget}
             name="target"
@@ -77,32 +79,56 @@ function Test() {
             onChange={handleChange}
           >
             <option value="">--select target--</option>
-            {targets.map((target) => {
-              return (
-                <option
-                  className={
-                    foundTargets.includes(target.name)
-                      ? "found-target"
-                      : "not-found-target"
-                  }
-                  disabled={foundTargets.includes(target.name)}
-                  key={target.id}
-                  value={target.id}
-                >
-                  {target.name}
-                </option>
-              );
-            })}
+            {targets.map((target) => (
+              <option
+                className={
+                  foundTargets.includes(target.name)
+                    ? "found-target"
+                    : "not-found-target"
+                }
+                disabled={foundTargets.includes(target.name)}
+                key={target.id}
+                value={target.id}
+              >
+                {target.name}
+              </option>
+            ))}
           </select>
           <button type="submit">check!</button>
         </form>
+
+        <div>Targets found: {foundTargets.length}</div>
       </div>
+
       <div className="where-is-waldo">
-        <img
-          onClick={handleImageClick}
-          src="src/assets/wheres-waldo-beach.jpeg"
-          alt=""
-        />
+        <div className="img-container">
+          <img
+            onClick={handleImageClick}
+            src="src/assets/wheres-waldo-beach.jpeg"
+            alt=""
+          />
+
+          {targets.map((target) => {
+            if (!foundTargets.includes(target.name)) return null;
+
+            return (
+              <div
+                key={target.id}
+                className="target-box fade-in"
+                style={{
+                  top: `${target.topLeftY * 100}%`,
+                  left: `${target.topLeftX * 100}%`,
+                  width: `${
+                    (target.bottomRightX + 0.01 - target.topLeftX) * 100
+                  }%`,
+                  height: `${
+                    (target.bottomRightY + 0.01 - target.topLeftY) * 100
+                  }%`,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     </>
   );
