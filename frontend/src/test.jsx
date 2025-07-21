@@ -15,8 +15,9 @@ function Test() {
   }, []);
 
   useEffect(() => {
-    if (targets.length > 0 && foundTargets.length == targets.length) {
+    if (targets.length > 0 && foundTargets.length === targets.length) {
       clearInterval(intervalId);
+      setIntervalId(null);
       const seconds = Math.floor((Date.now() - startTime) / 1000);
       console.log("Game finished in", seconds, "seconds");
     }
@@ -80,6 +81,10 @@ function Test() {
   };
 
   const handleStartClick = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+
     const now = Date.now();
     setStartTime(now);
     setElapsedTime(0);
@@ -95,7 +100,12 @@ function Test() {
   return (
     <>
       <header>
-        <button onClick={handleStartClick}>Start the game!</button>
+        <button
+          onClick={handleStartClick}
+          title={intervalId ? "Restart the game" : "Begin new game"}
+        >
+          {intervalId ? "Reset" : "Start the game!"}
+        </button>
 
         {startTime && (
           <>
