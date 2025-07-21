@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { NavLink, Outlet, useLocation } from "react-router";
 import "../styles/gameboard.css";
 import ResultDialogBox from "../components/result-dialog-box";
 
@@ -12,8 +12,9 @@ export default function Root() {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [showDialog, setShowDialog] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+  const location = useLocation();
 
-  let navigate = useNavigate();
+  const isSticky = location.pathname == "/game";
 
   useEffect(() => {
     fetchTargets();
@@ -26,7 +27,6 @@ export default function Root() {
       const targets = await res.json();
 
       setTargets(targets);
-      console.log(targets);
     } catch (error) {
       console.log(error);
     }
@@ -77,8 +77,6 @@ export default function Root() {
   };
 
   const handleStartClick = () => {
-    navigate("/game");
-
     if (intervalId) {
       clearInterval(intervalId);
     }
@@ -94,15 +92,27 @@ export default function Root() {
 
     setIntervalId(id);
   };
+
+  const handleExitGame = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+    setStartTime(null);
+    setElapsedTime(0);
+    setFoundTargets([]);
+  };
+
   return (
     <section className="root-section">
-      <header>
-        <button
+      <header className={isSticky ? "sticky-header" : ""}>
+        <NavLink
+          to="game"
           onClick={handleStartClick}
           title={intervalId ? "Restart the game" : "Begin new game"}
         >
-          {intervalId ? "Reset" : "Start the game!"}
-        </button>
+          {intervalId ? "RESTART" : "PLAY"}
+        </NavLink>
 
         {startTime && (
           <>
@@ -139,7 +149,15 @@ export default function Root() {
             <div>Time: {Math.floor(elapsedTime / 1000)} seconds</div>
           </>
         )}
-        <NavLink to="leaderboard">Leaderboard</NavLink>
+        <NavLink
+          onClick={handleExitGame}
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active" : ""
+          }
+          to="leaderboard"
+        >
+          Leaderboard
+        </NavLink>
       </header>
       <Outlet context={{ setCoords, targets, foundTargets }} />
       {showDialog && (
