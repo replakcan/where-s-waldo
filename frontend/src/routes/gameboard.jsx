@@ -9,7 +9,6 @@ function Gameboard() {
     const y = (e.clientY - rect.top) / rect.height;
 
     setCoords({ x, y });
-    console.log("Normalized: ", x.toFixed(3), y.toFixed(3));
   };
 
   return (
