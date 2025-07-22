@@ -8,12 +8,6 @@
   background-blend-mode: lighten;
 }
 
-.leaderboard > h1 {
-  font-size: 50px;
-  color: white;
-  background-color: rgba(146, 20, 20, 0.5);
-}
-
 .user-result-title {
   display: flex;
   border: 1px solid black;

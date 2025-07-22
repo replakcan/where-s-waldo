@@ -21,7 +21,6 @@ export default function LeaderBoard() {
 
   return (
     <section className="leaderboard">
-      <h1>Leaderboard</h1>
       {users?.map((user, index) => {
         return <UserResult key={user.id} rank={index} user={user} />;
       })}
