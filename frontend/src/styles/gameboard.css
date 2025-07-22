@@ -63,7 +63,6 @@ header {
   background-image: linear-gradient(to bottom right, rgb(146, 144, 238), white);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
   font-weight: bold;
-  font-family: "Courier New", Courier, monospace;
 }
 
 .sticky-header {

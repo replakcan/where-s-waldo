@@ -22,7 +22,6 @@
   transform: scale(0.9);
   animation: fadeInScale 0.3s ease forwards;
   background-image: linear-gradient(to bottom right, rgb(146, 144, 238), white);
-  font-family: "Courier New", Courier, monospace;
 }
 
 @keyframes fadeInScale {
