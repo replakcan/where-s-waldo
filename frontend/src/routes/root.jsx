@@ -17,20 +17,20 @@ export default function Root() {
   const isSticky = location.pathname == "/game";
 
   useEffect(() => {
+    const fetchTargets = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/targets");
+
+        const targets = await res.json();
+
+        setTargets(targets);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchTargets();
   }, []);
-
-  const fetchTargets = async () => {
-    try {
-      const res = await fetch("http://localhost:3001/api/targets");
-
-      const targets = await res.json();
-
-      setTargets(targets);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     if (targets.length > 0 && foundTargets.length === targets.length) {
