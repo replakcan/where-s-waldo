@@ -1,0 +1,18 @@
+.welcome-container {
+  height: 100vh;
+  background-image: url("../assets/wheres-waldo-beach.jpeg");
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: lighten;
+  padding: 5rem;
+  font-size: x-large;
+}
+
+.welcome-inner-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(146, 144, 238, 0.2);
+  border-radius: 2rem;
+  border-width: 2rem;
+}
