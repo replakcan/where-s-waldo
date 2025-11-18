@@ -12,8 +12,6 @@ Bu proje, bir junior web developer tarafından full-stack web geliştirme beceri
 - [Çalıştırma](#çalıştırma)
 - [API Endpoints](#api-endpoints)
 - [Veritabanı](#veritabanı)
-- [Kullanılan Öğrenme Kaynakları](#kullanılan-öğrenme-kaynakları)
-- [Geliştirme Notları](#geliştirme-notları)
 
 ## 🎮 Proje Hakkında
 
